@@ -3,6 +3,7 @@ import 'package:p2/src/filters/filter.dart';
 import 'package:p2/src/filters/filterConImpuestos.dart';
 import 'package:p2/src/filters/filterConversorDolares.dart';
 import 'package:p2/src/filters/filterConversorEuros.dart';
+import 'package:p2/src/filters/filterManager.dart';
 import 'package:p2/src/filters/filterSinImpuestos.dart';
 import 'package:p2/src/providers/cuenta.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +23,8 @@ class _CuentaPage extends State<CuentaPage> {
   final Filter filtroEuros   = new FilterConversorEuros();
   final Filter filtroSinImpuestos = new FilterSinImpuestos();
   final Filter filterConImpuestos = new FilterConImpuestos();
-  
+  final FilterManager filterManager = new FilterManager();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,9 +149,10 @@ class _CuentaPage extends State<CuentaPage> {
               setState( () {
                 var cuenta = context.read<Cuenta>();
 
-                if (!cuenta.isEuros){
+                if (!cuenta.isEuros && !cuenta.sinImpuestos){
                   cuenta.isEuros = true;
-                  filtroEuros.aplicar(cuenta);
+                  cuenta.sinImpuestos = true;
+                  filterManager.aplicarFiltros(cuenta);
                 }
                 
               })
