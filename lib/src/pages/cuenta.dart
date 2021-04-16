@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:p2/src/filters/filter.dart';
+import 'package:p2/src/filters/filterChain.dart';
 import 'package:p2/src/filters/filterConImpuestos.dart';
 import 'package:p2/src/filters/filterConversorDolares.dart';
 import 'package:p2/src/filters/filterConversorEuros.dart';
@@ -23,7 +24,17 @@ class _CuentaPage extends State<CuentaPage> {
   final Filter filtroEuros   = new FilterConversorEuros();
   final Filter filtroSinImpuestos = new FilterSinImpuestos();
   final Filter filterConImpuestos = new FilterConImpuestos();
-  final FilterManager filterManager = new FilterManager();
+
+  final FilterManager filterManager = new FilterManager(
+    new FilterChain(
+      new List.from( 
+        [
+          new FilterConversorEuros(), 
+          new FilterSinImpuestos()
+        ]
+      )
+    )
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -78,11 +89,7 @@ class _CuentaPage extends State<CuentaPage> {
             onPressed: () => {
               setState( () {
                 var cuenta = context.read<Cuenta>();
-
-                if (!cuenta.isEuros){
-                  cuenta.isEuros = true;
-                  filtroEuros.aplicar(cuenta);
-                }
+                filtroEuros.aplicar(cuenta);
               })
             },
     );
@@ -99,12 +106,7 @@ class _CuentaPage extends State<CuentaPage> {
             onPressed: () => {
               setState( () {
                 var cuenta = context.read<Cuenta>();
-
-                if (cuenta.isEuros){
-                  cuenta.isEuros = false;
-                  filtroDolares.aplicar(cuenta);
-                }
-                
+                filtroDolares.aplicar(cuenta);               
               })
             },
     );
@@ -127,10 +129,8 @@ class _CuentaPage extends State<CuentaPage> {
                 var cuenta = context.read<Cuenta>();
 
                 if (!cuenta.sinImpuestos){
-                  cuenta.sinImpuestos = true;
                   filtroSinImpuestos.aplicar(cuenta);
                 } else {
-                  cuenta.sinImpuestos = false;
                   filterConImpuestos.aplicar(cuenta);
                 }
               })
@@ -148,13 +148,7 @@ class _CuentaPage extends State<CuentaPage> {
             onPressed: () => {
               setState( () {
                 var cuenta = context.read<Cuenta>();
-
-                if (!cuenta.isEuros && !cuenta.sinImpuestos){
-                  cuenta.isEuros = true;
-                  cuenta.sinImpuestos = true;
-                  filterManager.aplicarFiltros(cuenta);
-                }
-                
+                filterManager.aplicarFiltros(cuenta);                
               })
             },);
   }

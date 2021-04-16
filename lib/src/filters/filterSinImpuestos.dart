@@ -9,6 +9,9 @@ class FilterSinImpuestos extends Filter {
 
   @override
   void aplicar (Cuenta cuenta) {
-    cuenta.saldo *= CONVERSION;
+    if (!cuenta.sinImpuestos){
+      cuenta.saldo *= CONVERSION;
+      cuenta.sinImpuestos = true;
+    }
   }
 }

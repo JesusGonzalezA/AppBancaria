@@ -6,7 +6,8 @@ class FilterChain {
 
   List<Filter> _filters = [];
 
-  FilterChain() {
+  FilterChain(List<Filter> filtros) {
+    _filters = filtros;
   }
 
   void aplicarFiltros (Cuenta cuenta) {

@@ -9,6 +9,9 @@ class FilterConversorEuros extends Filter {
 
   @override
   void aplicar (Cuenta cuenta) {
-    cuenta.saldo *= CONVERSION;
+    if (!cuenta.isEuros){
+      cuenta.isEuros = true;
+      cuenta.saldo *= CONVERSION;
+    }
   }
 }
