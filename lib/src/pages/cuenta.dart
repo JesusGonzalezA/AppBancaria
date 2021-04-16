@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:p2/src/filters/filter.dart';
+import 'package:p2/src/filters/filterConImpuestos.dart';
 import 'package:p2/src/filters/filterConversorDolares.dart';
 import 'package:p2/src/filters/filterConversorEuros.dart';
+import 'package:p2/src/filters/filterSinImpuestos.dart';
 import 'package:p2/src/providers/cuenta.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +20,8 @@ class _CuentaPage extends State<CuentaPage> {
   );
   final Filter filtroDolares = new FilterConversorDolares();
   final Filter filtroEuros   = new FilterConversorEuros();
+  final Filter filtroSinImpuestos = new FilterSinImpuestos();
+  final Filter filterConImpuestos = new FilterConImpuestos();
   
   @override
   Widget build(BuildContext context) {
@@ -111,9 +115,22 @@ class _CuentaPage extends State<CuentaPage> {
               backgroundColor: Colors.red,
               textStyle: new TextStyle(fontSize: 20)
             ),
-            child: Text('Sin impuestos'),
+            child: Consumer<Cuenta>(
+                  builder: (context, cuenta, child) {
+                    return Text( "${cuenta.sinImpuestos? 'Con impuestos' : 'Sin impuestos' }"); 
+                  }
+            ),
             onPressed: () => {
               setState( () {
+                var cuenta = context.read<Cuenta>();
+
+                if (!cuenta.sinImpuestos){
+                  cuenta.sinImpuestos = true;
+                  filtroSinImpuestos.aplicar(cuenta);
+                } else {
+                  cuenta.sinImpuestos = false;
+                  filterConImpuestos.aplicar(cuenta);
+                }
               })
             },);
   }
