@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:p2/src/pages/cuenta.dart';
+import 'package:p2/src/providers/cuenta.dart';
+import 'package:provider/provider.dart';
 
 
 class TransaccionesPage extends StatefulWidget {
@@ -13,7 +14,6 @@ class _TransaccionesPageState extends State<TransaccionesPage> {
   final _estiloTexto = new TextStyle( 
     fontSize: 25,
   );
-  int _saldo = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +22,23 @@ class _TransaccionesPageState extends State<TransaccionesPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text( 'Saldo:', style: _estiloTexto ),
-            Text( "$_saldo €"  , style: _estiloTexto )
-          ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text( 'Saldo de la cuenta: ', style: _estiloTexto ),
+                Consumer<Cuenta>(
+                  builder: (context, cuenta, child){
+                    return Text( "${cuenta.saldo.toStringAsFixed(2)} ${cuenta.isEuros? "€" : "\$" }"  , style: _estiloTexto ); 
+                  }
+                )
+              ]
+            ),
+          ]
         )
       )
     );
   }
-
 }
 
 

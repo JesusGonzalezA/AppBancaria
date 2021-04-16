@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:p2/src/pages/home.dart';
-import 'src/app.dart';
+import 'package:p2/src/providers/cuenta.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp( 
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Center(
-        child: HomePage(),
-      ),
+    ChangeNotifierProvider(
+      create: (context) => Cuenta(),
+      child: MaterialApp(
+        title: 'Tu app bancaria',
+        home: HomePage()
+      )
     )
   );
 }
