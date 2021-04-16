@@ -1,6 +1,6 @@
 # App bancaria
 
-**Autores:** 
+# Autores
  * :bust_in_silhouette: Jesús González Álvarez     :octocat: [JesusGonzalezA](https://github.com/JesusGonzalezA)
  * :bust_in_silhouette: Alejandro Soriano Morante  :octocat: [Soriano00](https://github.com/Soriano00)
 
