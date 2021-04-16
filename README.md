@@ -14,4 +14,4 @@ el saldo de la cuenta en dólares/euros y con una supuesta deducción de impuest
 - Patrón observador (Provider)
 - Filtros de intercepción (Estilo arquitectónico) 
 
-![](assets/demo.gif)
+<img src="assets/demo.gif" alt="Demo"  width=250/>
