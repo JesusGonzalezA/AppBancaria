@@ -10,6 +10,10 @@ class FilterChain {
     _filters = filtros;
   }
 
+  get filters {
+    return _filters;
+  }
+
   void aplicarFiltros (Cuenta cuenta) {
     _filters.forEach((filter) {
       filter.aplicar(cuenta);
