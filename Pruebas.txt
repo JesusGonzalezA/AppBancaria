@@ -1,0 +1,24 @@
+- Diseño de pruebas
+
+Se quiere comprobar que los filtros actúan correctamente. Por ello, hemos dedicado
+una sección de las pruebas a los mismos.
+Se probarán:
+ - FiltroConversorEuros: 
+    - Se cambia la moneda al aplicar el filtro
+    - Se cambia el saldo al aplicar el filtro
+    - Si el saldo es 0 no cambia el saldo pero sí la moneda
+    - Si ya se ha aplicado no se vuelve a aplicar
+ - FilterChain: 
+    - Se agrega correctamente un filtro
+ - FilterManager (integración de los dos anteriores):
+    - El saldo de la cuenta en euros y sin impuestos pasa a estar en dólares sin impuestos
+    - La cuenta vuelve a estar en euros y con el saldo inicial
+    - No actúa el filtro si ya se ha pasado
+
+Se quieren hacer tests sobre el frontend de la app.
+Se harán los siguientes tests sobre widgets:
+ - Se provará que el provider se crea correctamente y arranca la aplicación
+ - La página de inicio cuando el usuario entra es la de transacciones
+ - Se muestra el saldo en euros y correctamente
+ - Se realiza un ingreso y el saldo es actualizado
+ - Se realiza un ingreso y una conversión y el salario es actualizado
